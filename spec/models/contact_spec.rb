@@ -16,6 +16,14 @@ describe Contact do
     expect(contact.errors[:firstname]).to include("can't be blank")
   end
 
+
+  # factory girl version
+  it "factory girl - is invalid without a first name" do
+    contact = build(:contact,firstname:nil)
+    contact.valid?
+    expect(contact.errors[:firstname]).to include("can't be blank")
+  end
+
   it "is invalid without lastname"  do
     contact = Contact.new(lastname:nil)
     contact.valid?
@@ -28,8 +36,10 @@ describe Contact do
     expect(contact.errors[:email]).to include("can't be blank")
   end
 
-  it "is invalid with a duplicate email address" do
-     Contact.create(firstname: 'Joe', lastname: 'Tester', email: 'tester@example.com')
+  it 'is invalid with a duplicate email address' do
+     # create validates and saves to the database vs. new which just creates.
+     # Contact.create(firstname: 'Joe', lastname: 'Tester', email: 'tester@example.com')
+     create(:contact,email:'tester@example.com')
 
      contact = Contact.new(firstname: 'Jane', lastname: 'Tester', email: 'tester@example.com')
      contact.valid?
@@ -46,7 +56,7 @@ describe Contact do
   end
 
 
-  # CLASS  METHOD test - the Contact Models
+  # CLASS  METHOD test - the Contact Model
 
   it "returns a sorted array of results that match" do
     smith = Contact.create(
@@ -86,6 +96,11 @@ describe Contact do
   end
 
   # some refactoring DRY  (same tests as above but made DRY)
+  # we use a CONTEXT BLOCK and a BEFORE hook:
+  # the before executes before each test for only within the Describe block.
+  # difference - we now have to assign the contacts to an instance variable @
+  # so they will be available outside the block.  Before we did not have to do that.
+
   describe 'filter last name by letter'   do
 
     before :each do
@@ -120,9 +135,14 @@ describe Contact do
 
   end
 
-  # FACTORY GIRL
+  # FACTORY GIRL - does factory girl create a valid contact?
   it 'has a valid factory'  do
     expect(FactoryGirl.build(:contact)).to be_valid
+    expect(build(:contact)).to be_valid
+  end
+
+  it 'has three phone numbers when createdgit' do
+    expect(create(:contact).phones.count).to eq 3
   end
 
 end
