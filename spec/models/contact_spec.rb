@@ -141,7 +141,7 @@ describe Contact do
     expect(build(:contact)).to be_valid
   end
 
-  it 'has three phone numbers when createdgit' do
+  it 'has three phone numbers when createdgitsa' do
     expect(create(:contact).phones.count).to eq 3
   end
 

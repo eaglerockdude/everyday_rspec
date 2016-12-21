@@ -10,5 +10,8 @@ FactoryGirl.define do
         contact.phones << FactoryGirl.build(:phone,phone_type:phone, contact:contact)
       end
     end
+    factory :invalid_contact do
+      firstname nil  #inherits rest from contact but we make invalid.
+    end
   end
 end
