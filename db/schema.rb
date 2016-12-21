@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20140606043459) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
+a
   add_index "phones", ["contact_id"], name: "index_phones_on_contact_id"
 
   create_table "users", force: true do |t|

@@ -1,5 +1,5 @@
 class ContactsController < ApplicationController
-  before_action :authenticate, except: [:index, :show]
+#  before_action :authenticate, except: [:index, :show]
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
 
   # GET /contacts
@@ -7,6 +7,7 @@ class ContactsController < ApplicationController
   def index
     if params[:letter]
       @contacts = Contact.by_letter(params[:letter])
+      @contacts = @contacts
     else
       @contacts = Contact.order('lastname, firstname')
     end

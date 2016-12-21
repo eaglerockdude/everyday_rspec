@@ -1,5 +1,7 @@
-== README
+
 
 ### ken mcfadden
 
-Working code for everyday testing with rspec.
+## Everyday Rails Testing with Rspec
+
+Work thru code for everyday testing with rspec.
