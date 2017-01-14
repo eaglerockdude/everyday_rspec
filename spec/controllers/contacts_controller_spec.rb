@@ -21,10 +21,10 @@ describe ContactsController do
 
     context 'without params[:letter]' do
       it 'populates an array of ALL contacts' do
-        # smith = create(:contact, lastname: 'Smith')
-        # jones = create(:contact, lastname: 'Jones')
-        # get :index
-        # expect(assigns(:contacts)).to match_array([smith, jones])
+         smith = create(:contact, lastname: 'Smith')
+         jones = create(:contact, lastname: 'Jones')
+         get :index
+         expect(assigns(:contacts)).to match_array([smith, jones])
       end
 
       it 'renders the :index template' do
@@ -114,7 +114,7 @@ describe ContactsController do
 
     before :each do
       @contact = create(:contact, firstname: 'Lawrence', lastname: 'Smith')
-      end
+    end
 
     context 'with valid attributes' do
       it 'it finds/locates the correct contact to update' do
@@ -138,7 +138,7 @@ describe ContactsController do
       it 're-renders the :edit template' do
         patch :update, id: @contact,
               contact: attributes_for(:invalid_contact)
-              expect(response).to render_template :edit
+        expect(response).to render_template :edit
       end
     end
   end
@@ -151,7 +151,7 @@ describe ContactsController do
     it 'deletes the contact from the database' do
       expect{
         delete :destroy, id: @contact
-        }.to change(Contact,:count).by(-1)
+      }.to change(Contact,:count).by(-1)
     end
     it 're-directs to contacts index'  do
       delete :destroy, id: @contact
