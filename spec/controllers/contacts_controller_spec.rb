@@ -1,6 +1,13 @@
 require 'rails_helper'
-
 describe ContactsController do
+
+  describe "administrator access" do
+
+    before :each do
+      user = create(:admin)
+      session[:user_id] = user.id
+    end
+
   #INDEX ACTION
   describe 'GET #index' do
 
@@ -11,28 +18,25 @@ describe ContactsController do
         get :index, letter: 'S'
         expect(assigns(:contacts)).to match_array([smith])
       end
-
       it 'renders the :index template' do
         get :index, letter: 'S'
         expect(response).to render_template :index
       end
-
     end
 
     context 'without params[:letter]' do
+
       it 'populates an array of ALL contacts' do
          smith = create(:contact, lastname: 'Smith')
          jones = create(:contact, lastname: 'Jones')
          get :index
          expect(assigns(:contacts)).to match_array([smith, jones])
       end
-
       it 'renders the :index template' do
         get :index
         expect(response).to render_template :index
       end
     end
-
   end
 
   #SHOW ACTION
@@ -158,4 +162,23 @@ describe ContactsController do
       expect(response).to redirect_to contacts_url
     end
   end
-end
+  end  #admins access do
+
+  # TEST GUEST role
+  describe 'guest access' do
+    describe 'GET #new' do
+      it 'requires login' do
+        get :new
+        expect(response).to redirect_to login_url
+      end
+    end
+    describe 'POST #create' do
+      it 'requires login' do
+        post :create, id: create(:contact),
+             contact: attributes_for(:contact)
+        expect(response).to redirect_to login_url
+      end
+    end
+  end
+
+end   #contacts controller do
