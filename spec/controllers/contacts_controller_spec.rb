@@ -4,8 +4,10 @@ describe ContactsController do
   describe "administrator access" do
 
     before :each do
-      user = create(:admin)
-      session[:user_id] = user.id
+      # user = create(:admin)
+      # session[:user_id] = user.id
+      #used a macro to set the USER id..makes it more flexible incase our authentication changes.
+      set_user_session create(:admin)
     end
 
   #INDEX ACTION

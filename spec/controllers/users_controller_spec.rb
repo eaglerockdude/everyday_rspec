@@ -30,4 +30,12 @@ describe UsersController do
       it 're-renders the :new template'
   end
 
+  describe 'user access' do
+    before :each do
+      @user = create(:user)
+      session[:user_id] = @user.id
+    end
+
+  end
+
 end

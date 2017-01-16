@@ -21,6 +21,8 @@ RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # removed next line as we are using factories KM
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  # as per everyday rails include our custom macros
+    config.include LoginMacros
 
   # include FactoryGirl syntax to simplfy calls to factories
     config.include FactoryGirl::Syntax::Methods
